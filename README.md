@@ -1,2 +1,536 @@
-# processos
-Processos da Empresa
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo de Entrada — Ecossistema Gestão</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f0f0f0;padding:20px 16px 60px;color:#1a1a1a}
+.wrap{max-width:620px;margin:0 auto}
+
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:50%;background:#D01C1C;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:700;flex-shrink:0}
+.bn{font-size:14px;font-weight:700}
+.bs{font-size:11px;color:#888;margin-top:1px}
+.pct{background:#FDEDEC;color:#C0392B;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap}
+
+.alert{border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px}
+.alert-r{background:#FDEDEC;border-left:4px solid #D01C1C;}
+.alert-a{background:#FEF9E7;border-left:4px solid #F39C12;}
+.alert-txt-r{font-size:12.5px;color:#922B21;line-height:1.55}
+.alert-txt-a{font-size:12.5px;color:#7D6608;line-height:1.55}
+
+.prog-wrap{margin-bottom:20px}
+.prog-lbl{font-size:11px;color:#888;margin-bottom:6px}
+.prog-bar{height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:#D01C1C;border-radius:3px;transition:width .4s}
+
+.phase-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:6px 12px;border-radius:6px;margin:20px 0 10px;display:inline-block}
+.phase-1{background:#EFF6FF;color:#1D4ED8}
+.phase-2{background:#FEF3C7;color:#92400E}
+.phase-3{background:#F0FDF4;color:#166534}
+
+.step{margin-bottom:12px}
+.card{background:#fff;border-radius:12px;border:1px solid #e5e5e5;overflow:hidden}
+.card-head{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid #f0f0f0}
+.ch-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;color:#fff}
+.ch-info{flex:1}
+.ch-title{font-size:14px;font-weight:700;color:#1a1a1a}
+.ch-sub{font-size:12px;color:#888;margin-top:2px;line-height:1.4}
+.dl{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.dl-r{background:#FDEDEC;color:#C0392B}
+.dl-a{background:#FEF3C7;color:#92400E}
+.dl-b{background:#EFF6FF;color:#1D4ED8}
+.dl-g{background:#F0FDF4;color:#166534}
+
+.card-body{padding:14px 16px}
+
+.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#888;margin-bottom:8px}
+.divider{height:1px;background:#f0f0f0;margin:12px 0}
+
+.ci{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid #efefef;border-radius:8px;cursor:pointer;margin-bottom:6px;transition:all .15s;background:#fff;-webkit-tap-highlight-color:transparent}
+.ci:last-child{margin-bottom:0}
+.ci:active{background:#fafafa}
+.ci.checked{background:#f0fdf4;border-color:#bbf7d0}
+.ci-box{width:20px;height:20px;min-width:20px;border:2px solid #d1d5db;border-radius:5px;display:flex;align-items:center;justify-content:center;margin-top:1px;background:#fff;font-size:12px;font-weight:700;color:transparent;transition:all .15s}
+.ci.checked .ci-box{background:#22c55e;border-color:#22c55e;color:#fff}
+.ci-lbl{font-size:13px;font-weight:500;color:#1a1a1a;line-height:1.4}
+.ci.checked .ci-lbl{color:#166534;text-decoration:line-through;text-decoration-color:#86efac}
+.ci-sub{font-size:11px;color:#9ca3af;margin-top:3px;line-height:1.4}
+.ci.checked .ci-sub{color:#86efac}
+
+.msg-box{background:#fafafa;border-left:4px solid #D01C1C;border-radius:0 8px 8px 0;padding:12px 14px;font-size:13px;color:#1a1a1a;line-height:1.8;margin-bottom:10px}
+.copy-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#555;border:1px solid #ddd;border-radius:7px;padding:6px 12px;cursor:pointer;background:#fff;font-family:'Inter',sans-serif;margin-bottom:14px}
+
+.crm-note{background:#FEF9E7;border-left:3px solid #F39C12;border-radius:0 7px 7px 0;padding:10px 13px;margin-top:12px;display:flex;gap:8px;align-items:flex-start}
+.crm-ico{font-size:14px;flex-shrink:0;margin-top:1px}
+.crm-txt{font-size:12px;color:#7D6608;line-height:1.55}
+.crm-txt strong{font-weight:700;color:#92400E}
+
+.done-banner{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;text-align:center;margin-top:10px}
+.done-banner p{font-size:13px;font-weight:700;color:#166534}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hd">
+  <div class="brand">
+    <div class="logo">G</div>
+    <div>
+      <div class="bn">Ecossistema Gestão</div>
+      <div class="bs">Processo de entrada — visão do gestor</div>
+    </div>
+  </div>
+  <div class="pct" id="pct">0% concluído</div>
+</div>
+
+<div class="alert alert-r">
+  <div class="alert-txt-r">⚠️ <strong>Crítico:</strong> 70% dos cancelamentos ocorrem nos primeiros 60 dias. Siga cada etapa sem pular. Sem registro, não aconteceu.</div>
+</div>
+
+<div class="alert alert-a">
+  <div class="alert-txt-a">⚙️ <strong>CRM Ecossistema:</strong> Etapas marcadas com ⚙ serão gerenciadas pelo sistema quando estiver operacional. Por ora, siga as instruções alternativas indicadas.</div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-lbl" id="prog-lbl">0 de 12 etapas concluídas</div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<!-- ══ FASE 1 ══ -->
+<div class="phase-title phase-1">📥 Fase 1 — Entrada e Configuração (Dias 1 a 3)</div>
+
+<!-- ETAPA 1 — BRIEFING -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#2980B9">01</div>
+      <div class="ch-info">
+        <div class="ch-title">📋 Briefing do Comercial</div>
+        <div class="ch-sub">Leia o briefing antes de qualquer ação. Ele tem tudo que você precisa saber sobre o cliente.</div>
+      </div>
+      <div class="dl dl-b">Dia 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,0,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Briefing do comercial lido e revisado</div><div class="ci-sub">Segmento, expectativas, plano contratado, observações do fechamento</div></div></div>
+      <div class="ci" onclick="tgl(this,0,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Pontos importantes anotados</div><div class="ci-sub">Qualquer informação que impacte a forma de atendimento</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> O briefing será anexado no perfil do cliente. Por ora, salve em pasta organizada com o nome do cliente.</div></div>
+      <div class="done-banner" id="done-0" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 2 — GRUPO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#D01C1C">02</div>
+      <div class="ch-info">
+        <div class="ch-title">💬 Grupo de WhatsApp</div>
+        <div class="ch-sub">Primeiro contato oficial com o cliente.</div>
+      </div>
+      <div class="dl dl-r">Dia 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Mensagem 1 — Apresentação da equipe</div>
+      <div class="msg-box" id="msg2">@[CLIENTE] seja muito bem-vindo(a) a [NOME DA EMPRESA]!<br><br>Agradecemos por escolher a nossa empresa. É um prazer tê-lo como cliente e estamos comprometidos em oferecer um serviço eficiente, estratégico e alinhado às suas necessidades.<br><br>A seguir, apresentamos nossa equipe e respectivas responsabilidades para facilitar o contato e a fluidez da operação:<br><br>A @[ATENDIMENTO] é responsável pelo atendimento e controle. Será seu ponto de apoio para dúvidas e acompanhamento.<br><br>O @[GESTOR] é responsável pelas estratégias comerciais, gestão de performance no iFood e coordenação de todas as frentes de resultados.<br><br>Nosso objetivo é garantir a melhor experiência possível e contribuir ativamente para o sucesso da sua operação.<br><br>Ficamos à disposição para qualquer necessidade.<br><br>Atenciosamente,<br>[NOME DA EMPRESA]</div>
+      <button class="copy-btn" id="cbtn2" onclick="copyMsg2()">📋 Copiar mensagem</button>
+
+      <div class="sec" style="margin-top:4px">Mensagem 2 — Solicitação de acesso iFood</div>
+      <div class="msg-box" id="msg3">Para darmos início aos processos, consegue adicionar nosso acesso na loja?<br><br>Segue abaixo o passo a passo. Caso ainda fique com alguma dúvida, fico à disposição para te ajudar 👇🏽<br><br>1️⃣ Acesse o Portal do Parceiro<br>2️⃣ Vá em Minha Loja<br>3️⃣ Clique em Criar acesso<br>4️⃣ Confirme sua identidade<br>5️⃣ Digite a senha do Portal do Parceiro<br>6️⃣ Confirme com o código enviado<br>7️⃣ Preencha os dados:<br>&nbsp;&nbsp;&nbsp;• Nome de usuário: [NOME DA EMPRESA] ex: Opera+<br>&nbsp;&nbsp;&nbsp;• E-mail: [EMAIL DA EMPRESA]<br>8️⃣ Em Configuração de acesso, selecione DONO DE LOJA<br><br>Após salvar, o acesso estará concluído ✅</div>
+      <button class="copy-btn" id="cbtn3" onclick="copyMsg3()">📋 Copiar mensagem</button>
+
+      <div class="divider"></div>
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,1,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Grupo criado com nome padrão</div><div class="ci-sub">Ex: 🍕 Bella Pizza | Eleva</div></div></div>
+      <div class="ci" onclick="tgl(this,1,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Cliente e gestor adicionados ao grupo</div></div></div>
+      <div class="ci" onclick="tgl(this,1,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Foto de capa com logo do cliente definida</div><div class="ci-sub">Imagem padrão do ecossistema com a logo do estabelecimento</div></div></div>
+      <div class="ci" onclick="tgl(this,1,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Mensagem de boas-vindas enviada</div><div class="ci-sub">Copie o modelo acima e personalize os campos em colchetes</div></div></div>
+      <div class="ci" onclick="tgl(this,1,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Gestor se apresentou no grupo</div><div class="ci-sub">Apresentação pessoal e confirmação de disponibilidade</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> A criação do grupo será registrada com data e hora. Por ora, anote em planilha de controle.</div></div>
+      <div class="done-banner" id="done-1" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 3 — LOGO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#D01C1C">03</div>
+      <div class="ch-info">
+        <div class="ch-title">🎨 Solicitação de Logo</div>
+        <div class="ch-sub">Solicitar via grupo para uso na foto de capa e materiais futuros.</div>
+      </div>
+      <div class="dl dl-r">Dia 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,2,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Logo solicitada ao cliente via grupo</div></div></div>
+      <div class="ci" onclick="tgl(this,2,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Logo recebida em alta resolução</div><div class="ci-sub">PNG ou AI preferencialmente</div></div></div>
+      <div class="ci" onclick="tgl(this,2,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Logo salva na pasta do cliente</div></div></div>
+      <div class="ci" onclick="tgl(this,2,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Foto de capa do grupo atualizada com a logo real</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> A logo será anexada no perfil do cliente. Por ora, salvar em pasta no Google Drive ou similar.</div></div>
+      <div class="done-banner" id="done-2" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 4 — ACESSOS -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#D01C1C">04</div>
+      <div class="ch-info">
+        <div class="ch-title">🔑 Acessos iFood</div>
+        <div class="ch-sub">Solicitar via grupo. Nunca por mensagem avulsa ou grupo aberto.</div>
+      </div>
+      <div class="dl dl-r">Dia 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,3,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Login iFood solicitado e recebido</div><div class="ci-sub">E-mail ou CPF/CNPJ cadastrado na plataforma</div></div></div>
+      <div class="ci" onclick="tgl(this,3,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Senha recebida e armazenada com segurança</div><div class="ci-sub">Nunca em texto aberto</div></div></div>
+      <div class="ci" onclick="tgl(this,3,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">ID da loja iFood identificado</div></div></div>
+      <div class="ci" onclick="tgl(this,3,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Nome da loja no iFood confirmado</div><div class="ci-sub">Pode ser diferente do nome fantasia</div></div></div>
+      <div class="ci" onclick="tgl(this,3,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Acesso testado e funcionando</div><div class="ci-sub">Confirmar login com sucesso antes de avançar</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> Credenciais armazenadas com criptografia. Por ora, usar planilha protegida por senha de acesso restrito ao gestor.</div></div>
+      <div class="done-banner" id="done-3" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 5 — PRINTS -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">05</div>
+      <div class="ch-info">
+        <div class="ch-title">📸 Prints do Portal iFood</div>
+        <div class="ch-sub">Prova do trabalho realizado e base de comparação futura. Salvar em pasta: [Cliente] - [ID] - [Data]</div>
+      </div>
+      <div class="dl dl-a">Dias 1–3</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Aba Desempenho</div>
+      <div class="ci" onclick="tgl(this,4,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Funil + faturamento dos 3 meses anteriores</div></div></div>
+      <div class="ci" onclick="tgl(this,4,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">10 produtos mais vendidos — últimos 90 dias</div></div></div>
+      <div class="ci" onclick="tgl(this,4,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">10 produtos menos vendidos — últimos 90 dias</div></div></div>
+      <div class="divider"></div>
+      <div class="sec">Aba Financeiro</div>
+      <div class="ci" onclick="tgl(this,4,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Taxa real + faturamento dos últimos 2 meses</div><div class="ci-sub">Entender custo real na plataforma</div></div></div>
+      <div class="ci" onclick="tgl(this,4,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Índice de avaliações atual</div></div></div>
+      <div class="ci" onclick="tgl(this,4,5)"><div class="ci-box">✓</div><div><div class="ci-lbl">Conta de recebimento — controle interno</div></div></div>
+      <div class="divider"></div>
+      <div class="sec">Demais Abas</div>
+      <div class="ci" onclick="tgl(this,4,6)"><div class="ci-box">✓</div><div><div class="ci-lbl">Super Restaurante — presença ou ausência confirmada</div></div></div>
+      <div class="ci" onclick="tgl(this,4,7)"><div class="ci-box">✓</div><div><div class="ci-lbl">Seus Clientes — seguidores, recompra, hábitos e cupons</div></div></div>
+      <div class="ci" onclick="tgl(this,4,8)"><div class="ci-box">✓</div><div><div class="ci-lbl">Promoções ativas + campanha inteligente</div><div class="ci-sub">Básico ou completo?</div></div></div>
+
+      <div class="ci" onclick="tgl(this,4,10)"><div class="ci-box">✓</div><div><div class="ci-lbl">Cardápio — todas as seções (backup completo)</div></div></div>
+      <div class="ci" onclick="tgl(this,4,11)"><div class="ci-box">✓</div><div><div class="ci-lbl">Área de entrega — regiões e taxas</div></div></div>
+      <div class="ci" onclick="tgl(this,4,12)"><div class="ci-box">✓</div><div><div class="ci-lbl">Horários de funcionamento</div><div class="ci-sub">Confirmar com o cliente na 1ª reunião</div></div></div>
+      <div class="ci" onclick="tgl(this,4,13)"><div class="ci-box">✓</div><div><div class="ci-lbl">Formas de pagamento — verificar ticket alimentação</div></div></div>
+      <div class="ci" onclick="tgl(this,4,14)"><div class="ci-box">✓</div><div><div class="ci-lbl">Minha loja — nome, logo, pedido mínimo, endereço</div><div class="ci-sub">Pedido mínimo ideal: R$ 20,00</div></div></div>
+      <div class="ci" onclick="tgl(this,4,15)"><div class="ci-box">✓</div><div><div class="ci-lbl">Serviços — Entrega+, Entrega Fácil, recebimento 1 semana</div></div></div>
+      <div class="ci" onclick="tgl(this,4,16)"><div class="ci-box">✓</div><div><div class="ci-lbl">Pasta criada e organizada com todos os prints</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> Os prints serão anexados no perfil do cliente por categoria. Por ora, salvar em pasta no Google Drive organizada por data.</div></div>
+      <div class="done-banner" id="done-4" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FASE 2 ══ -->
+<div class="phase-title phase-2">📊 Fase 2 — Planejamento e Ativação (Dias 3 a 7)</div>
+
+<!-- ETAPA 6 — 1ª REUNIÃO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">06</div>
+      <div class="ch-info">
+        <div class="ch-title">🤝 1ª Reunião de Alinhamento</div>
+        <div class="ch-sub">Apresentar a análise inicial e alinhar expectativas para o mês 1.</div>
+      </div>
+      <div class="dl dl-a">Até dia 7</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,5,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Análise inicial do iFood preparada</div><div class="ci-sub">Oportunidades, problemas e prioridades identificadas</div></div></div>
+      <div class="ci" onclick="tgl(this,5,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Data e horário confirmados com o cliente no grupo</div></div></div>
+      <div class="ci" onclick="tgl(this,5,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Link ou endereço enviado no grupo de WhatsApp</div></div></div>
+      <div class="ci" onclick="tgl(this,5,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Reunião realizada</div></div></div>
+
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> A reunião será registrada com data no histórico do cliente. Por ora, registrar a data em planilha de controle.</div></div>
+      <div class="done-banner" id="done-5" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 7 — PLANO DE AÇÃO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">07</div>
+      <div class="ch-info">
+        <div class="ch-title">📋 Plano de Ação Inicial</div>
+        <div class="ch-sub">Elaborar e entregar o plano com tudo que será executado no mês 1.</div>
+      </div>
+      <div class="dl dl-a">Até dia 7</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,6,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Plano de Ação Inicial elaborado</div><div class="ci-sub">O que será feito, em que ordem e com qual objetivo</div></div></div>
+      <div class="ci" onclick="tgl(this,6,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Ajustes de cardápio definidos e listados</div><div class="ci-sub">Conforme análise inicial</div></div></div>
+      <div class="ci" onclick="tgl(this,6,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Campanhas a ativar definidas e listadas</div><div class="ci-sub">Com datas previstas de ativação</div></div></div>
+      <div class="ci" onclick="tgl(this,6,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Plano enviado ao cliente no grupo</div></div></div>
+      <div class="ci" onclick="tgl(this,6,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Plano aprovado pelo cliente</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> O Plano de Ação será anexado no perfil e vinculado às demandas criadas. Por ora, salvar PDF na pasta do cliente e enviar pelo grupo.</div></div>
+      <div class="done-banner" id="done-6" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 8 — AUDITORIA -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">08</div>
+      <div class="ch-info">
+        <div class="ch-title">📊 Auditoria iFood</div>
+        <div class="ch-sub">Levantamento completo de tudo que precisa ser corrigido. Prazo: até 72h após a entrada.</div>
+      </div>
+      <div class="dl dl-a">D3</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,7,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Fotos do cardápio revisadas — itens sem imagem identificados</div></div></div>
+      <div class="ci" onclick="tgl(this,7,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Descrições dos produtos revisadas</div></div></div>
+      <div class="ci" onclick="tgl(this,7,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Preços conferidos e competitividade avaliada</div></div></div>
+      <div class="ci" onclick="tgl(this,7,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Pedido mínimo avaliado</div><div class="ci-sub">Ideal: R$ 20,00</div></div></div>
+      <div class="ci" onclick="tgl(this,7,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Horários de funcionamento conferidos</div></div></div>
+      <div class="ci" onclick="tgl(this,7,5)"><div class="ci-box">✓</div><div><div class="ci-lbl">Endereço e área de entrega verificados</div></div></div>
+      <div class="ci" onclick="tgl(this,7,6)"><div class="ci-box">✓</div><div><div class="ci-lbl">Lista de correções gerada por prioridade</div><div class="ci-sub">Alta / Média / Baixa</div></div></div>
+      <div class="ci" onclick="tgl(this,7,7)"><div class="ci-box">✓</div><div><div class="ci-lbl">Lista enviada ao cliente no grupo de WhatsApp</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> A auditoria gerará demandas automaticamente no quadro do cliente. Por ora, registrar as ações pendentes em planilha de controle.</div></div>
+      <div class="done-banner" id="done-7" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 9 — CARDÁPIO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">09</div>
+      <div class="ch-info">
+        <div class="ch-title">🍽 Primeiros Ajustes no Cardápio</div>
+        <div class="ch-sub">Executar os ajustes definidos no Plano de Ação e levantados na auditoria.</div>
+      </div>
+      <div class="dl dl-a">Semana 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,8,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Fotos faltantes adicionadas ou solicitadas ao cliente</div></div></div>
+      <div class="ci" onclick="tgl(this,8,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Descrições dos produtos melhoradas</div></div></div>
+      <div class="ci" onclick="tgl(this,8,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Preços ajustados conforme análise</div></div></div>
+      <div class="ci" onclick="tgl(this,8,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Pedido mínimo ajustado para R$ 20,00</div><div class="ci-sub">Se aplicável</div></div></div>
+      <div class="ci" onclick="tgl(this,8,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Combos criados conforme Plano de Ação</div></div></div>
+      <div class="ci" onclick="tgl(this,8,5)"><div class="ci-box">✓</div><div><div class="ci-lbl">Categorias organizadas e nomeadas corretamente</div></div></div>
+      <div class="ci" onclick="tgl(this,8,6)"><div class="ci-box">✓</div><div><div class="ci-lbl">Print do cardápio antes e depois salvo na pasta</div><div class="ci-sub">Prova do trabalho realizado</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> Os ajustes serão registrados como demandas concluídas com before/after anexado. Por ora, salvar prints na pasta do cliente.</div></div>
+      <div class="done-banner" id="done-8" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 10 — CAMPANHAS -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#E67E22">10</div>
+      <div class="ch-info">
+        <div class="ch-title">🎯 Ativação das Campanhas</div>
+        <div class="ch-sub">Uma ação de visibilidade já precisa estar rodando na 1ª semana. Mostra velocidade e comprometimento.</div>
+      </div>
+      <div class="dl dl-a">Semana 1</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,9,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Promoção ou campanha inicial ativada no iFood</div><div class="ci-sub">Conforme Plano de Ação</div></div></div>
+      <div class="ci" onclick="tgl(this,9,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Campanha inteligente verificada ou ativada</div><div class="ci-sub">Básico ou completo</div></div></div>
+      <div class="ci" onclick="tgl(this,9,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Ticket alimentação ativado (se aplicável)</div><div class="ci-sub">Gera nova base de captação de clientes</div></div></div>
+      <div class="ci" onclick="tgl(this,9,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Cupom de boas-vindas configurado e disparado</div></div></div>
+      <div class="ci" onclick="tgl(this,9,4)"><div class="ci-box">✓</div><div><div class="ci-lbl">Print das campanhas ativas salvo na pasta</div></div></div>
+      <div class="ci" onclick="tgl(this,9,5)"><div class="ci-box">✓</div><div><div class="ci-lbl">Campanhas comunicadas ao cliente no grupo</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> Cada campanha será registrada como demanda concluída. Por ora, registrar em planilha com data de ativação e resultado inicial.</div></div>
+      <div class="done-banner" id="done-9" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FASE 3 ══ -->
+<div class="phase-title phase-3">🏆 Fase 3 — Acompanhamento (Dias 14 e 30)</div>
+
+<!-- ETAPA 11 — CHECK-IN -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#27AE60">11</div>
+      <div class="ch-info">
+        <div class="ch-title">📞 Check-in de 2 Semanas</div>
+        <div class="ch-sub">Ouvir, não vender. Demonstra cuidado e antecipa insatisfações.</div>
+      </div>
+      <div class="dl dl-g">D14</div>
+    </div>
+    <div class="card-body">
+      <div style="background:#f0fdf4;border-left:3px solid #22c55e;border-radius:0 7px 7px 0;padding:10px 13px;margin-bottom:12px;font-size:12.5px;color:#166534;font-style:italic">"Como está sendo a experiência até agora? Alguma dúvida ou ajuste que você quer fazer?"</div>
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,10,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Check-in realizado por WhatsApp ou ligação</div></div></div>
+      <div class="ci" onclick="tgl(this,10,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Resposta e feedback do cliente anotados</div></div></div>
+      <div class="ci" onclick="tgl(this,10,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Ajustes solicitados registrados e encaminhados</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> O check-in será registrado no histórico do cliente com resposta e ações. Por ora, registrar em planilha de controle.</div></div>
+      <div class="done-banner" id="done-10" style="display:none"><p>✅ Etapa concluída</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ETAPA 12 — RESULTADO -->
+<div class="step">
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-num" style="background:#27AE60">12</div>
+      <div class="ch-info">
+        <div class="ch-title">🏆 Reunião de Resultado do Mês 1</div>
+        <div class="ch-sub">Marco final do onboarding. Após esta reunião o cliente migra para gestão recorrente.</div>
+      </div>
+      <div class="dl dl-g">D30</div>
+    </div>
+    <div class="card-body">
+      <div class="sec">Checklist</div>
+      <div class="ci" onclick="tgl(this,11,0)"><div class="ci-box">✓</div><div><div class="ci-lbl">Relatório do mês 1 preparado</div><div class="ci-sub">Pedidos, ticket médio, avaliações, crescimento vs período anterior</div></div></div>
+      <div class="ci" onclick="tgl(this,11,1)"><div class="ci-box">✓</div><div><div class="ci-lbl">Plano para o mês 2 preparado</div></div></div>
+      <div class="ci" onclick="tgl(this,11,2)"><div class="ci-box">✓</div><div><div class="ci-lbl">Data e horário confirmados com o cliente no grupo</div></div></div>
+      <div class="ci" onclick="tgl(this,11,3)"><div class="ci-box">✓</div><div><div class="ci-lbl">Reunião realizada</div></div></div>
+      <div class="ci" onclick="tgl(this,11,5)"><div class="ci-box">✓</div><div><div class="ci-lbl">Cliente migrado para gestão recorrente</div><div class="ci-sub">Onboarding concluído ✓ — avisar a diretoria</div></div></div>
+      <div class="crm-note"><div class="crm-ico">⚙</div><div class="crm-txt"><strong>No CRM:</strong> O cliente será migrado automaticamente para o módulo de gestão recorrente. Por ora, atualizar planilha de controle e comunicar à diretoria.</div></div>
+      <div class="done-banner" id="done-11" style="display:none"><p>✅ Onboarding concluído! Cliente migrado para gestão recorrente. 🎉</p></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const COUNTS = [2, 5, 4, 5, 16, 4, 5, 8, 7, 6, 3, 5];
+const TOTAL = COUNTS.reduce((a,b)=>a+b,0);
+let state = COUNTS.map(n => Array(n).fill(false));
+
+function tgl(el, step, idx) {
+  state[step][idx] = !state[step][idx];
+  const box = el.querySelector('.ci-box');
+  if (state[step][idx]) {
+    el.classList.add('checked');
+    box.style.background = '#22c55e';
+    box.style.borderColor = '#22c55e';
+    box.style.color = '#fff';
+  } else {
+    el.classList.remove('checked');
+    box.style.background = '#fff';
+    box.style.borderColor = '#d1d5db';
+    box.style.color = 'transparent';
+  }
+  const done = state[step].every(Boolean);
+  const banner = document.getElementById('done-' + step);
+  if (banner) banner.style.display = done ? 'block' : 'none';
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = state.reduce((a,s) => a + s.filter(Boolean).length, 0);
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('pct').textContent = pct + '% concluído';
+  const doneSteps = state.filter(s => s.every(Boolean)).length;
+  document.getElementById('prog-lbl').textContent = doneSteps + ' de 12 etapas concluídas';
+  document.getElementById('pct').style.background = pct === 100 ? '#f0fdf4' : '#FDEDEC';
+  document.getElementById('pct').style.color = pct === 100 ? '#166534' : '#C0392B';
+}
+
+function copyMsg2() {
+  const msg = `@[CLIENTE] seja muito bem-vindo(a) a [NOME DA EMPRESA]!
+
+Agradecemos por escolher a nossa empresa. É um prazer tê-lo como cliente e estamos comprometidos em oferecer um serviço eficiente, estratégico e alinhado às suas necessidades.
+
+A seguir, apresentamos nossa equipe e respectivas responsabilidades para facilitar o contato e a fluidez da operação:
+
+A @[ATENDIMENTO] é responsável pelo atendimento e controle. Será seu ponto de apoio para dúvidas e acompanhamento.
+
+O @[GESTOR] é responsável pelas estratégias comerciais, gestão de performance no iFood e coordenação de todas as frentes de resultados.
+
+Nosso objetivo é garantir a melhor experiência possível e contribuir ativamente para o sucesso da sua operação.
+
+Ficamos à disposição para qualquer necessidade.
+
+Atenciosamente,
+[NOME DA EMPRESA]`;
+  navigator.clipboard.writeText(msg).then(() => {
+    const b = document.getElementById('cbtn2');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  }).catch(() => {
+    const b = document.getElementById('cbtn2');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  });
+}
+
+function copyMsg3() {
+  const msg = `Para darmos início aos processos, consegue adicionar nosso acesso na loja?
+
+Segue abaixo o passo a passo. Caso ainda fique com alguma dúvida, fico à disposição para te ajudar 👇🏽
+
+1️⃣ Acesse o Portal do Parceiro
+2️⃣ Vá em Minha Loja
+3️⃣ Clique em Criar acesso
+4️⃣ Confirme sua identidade
+5️⃣ Digite a senha do Portal do Parceiro
+6️⃣ Confirme com o código enviado
+7️⃣ Preencha os dados:
+   • Nome de usuário: [NOME DA EMPRESA] ex: Opera+
+   • E-mail: [EMAIL DA EMPRESA]
+8️⃣ Em Configuração de acesso, selecione DONO DE LOJA
+
+Após salvar, o acesso estará concluído ✅`;
+  navigator.clipboard.writeText(msg).then(() => {
+    const b = document.getElementById('cbtn3');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  }).catch(() => {
+    const b = document.getElementById('cbtn3');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  });
+}
+
+function copyMsg() {
+  const msg = `Olá, [NOME DO RESPONSÁVEL]!\n\nSeja muito bem-vindo(a)! Estamos muito felizes em ter o [NOME DO ESTABELECIMENTO] com a gente. A partir de agora, você conta com uma equipe especializada em gestão e crescimento no iFood.\n\nAqui neste grupo você terá acesso direto ao seu gestor, [NOME DO GESTOR], que será seu ponto de contato para tudo que precisar.\n\nNos próximos passos vamos:\n✅ Coletar os seus acessos do iFood\n📊 Fazer uma análise completa do seu perfil\n🤝 Agendar nossa primeira reunião de alinhamento\n\nQualquer dúvida, estamos aqui!`;
+  navigator.clipboard.writeText(msg).then(() => {
+    const b = document.getElementById('cbtn');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  }).catch(() => {
+    const b = document.getElementById('cbtn');
+    b.textContent = '✅ Copiado!';
+    setTimeout(() => { b.textContent = '📋 Copiar mensagem'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
+
