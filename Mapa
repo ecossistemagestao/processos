@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo Completo Magos — Mapa Mental</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .header .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #CC0000;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 72px);
+    letter-spacing: 3px;
+    color: #111111;
+    line-height: 1;
+  }
+  .header h1 span { color: #CC0000; }
+  .header .sub {
+    font-size: 14px;
+    color: #888;
+    margin-top: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── BLOCO ── */
+  .bloco {
+    position: relative;
+  }
+
+  .bloco-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+  }
+  .bloco-header.entrada { background: #CC0000; }
+  .bloco-header.gestao  { background: #004d30; border-top: 2px solid #006e43; margin-top: 48px; }
+
+  .bloco-header .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    opacity: 0.35;
+  }
+  .bloco-header .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+  .bloco-header .subtitle {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* ── FASES ── */
+  .fases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .fase {
+    border-right: 1px solid #e0e0e0;
+    position: relative;
+  }
+  .fase:last-child { border-right: none; }
+
+  .fase-header {
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+  }
+  .fase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #CC0000;
+    margin-bottom: 4px;
+  }
+  .fase-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.3;
+  }
+  .fase-periodo {
+    font-size: 10px;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  .fase-steps {
+    padding: 8px 0;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .step:last-child { border-bottom: none; }
+  .step:hover { background: #fafafa; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #CC0000;
+    line-height: 1;
+    min-width: 28px;
+    margin-top: 1px;
+  }
+
+  .step-content {}
+  .step-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #111111;
+    line-height: 1.3;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: #555;
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+
+  /* ── CONECTORES ENTRE FASES ── */
+  .fase-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+    background: #ffffff;
+    gap: 4px;
+  }
+  .connector-dot {
+    width: 4px; height: 4px;
+    background: #CC0000;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  /* ── DIVISOR ENTRE BLOCOS ── */
+  .divisor {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 0 0;
+  }
+  .divisor-line { flex: 1; height: 1px; background: #1e1e1e; }
+  .divisor-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #aaa;
+    text-transform: uppercase;
+  }
+
+  /* ── MÓDULOS DE GESTÃO ── */
+  .modulos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: #e0e0e0;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .modulo {
+    background: #ffffff;
+    padding: 20px 22px;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .modulo:hover { background: #fafafa; }
+
+  .modulo-tag {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #1a7a52;
+    margin-bottom: 6px;
+  }
+  .modulo-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #111111;
+    margin-bottom: 12px;
+  }
+  .modulo-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .modulo-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .modulo-items li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #CC0000;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  /* ── FREQUÊNCIA BADGE ── */
+  .freq-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .freq-diario  { background: #fff0f0; color: #CC0000; border: 1px solid #CC0000; }
+  .freq-semanal { background: #f0fff8; color: #1a7a52; border: 1px solid #1a7a52; }
+  .freq-mensal  { background: #f0f2ff; color: #4455CC; border: 1px solid #4455CC; }
+  .freq-cal     { background: #fffbf0; color: #886600; border: 1px solid #886600; }
+
+  /* ── ALERTA ── */
+  .alerta {
+    background: #fff5f5;
+    border-left: 3px solid #CC0000;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin: 16px 0 0;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .alerta strong { color: #CC0000; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    margin-top: 64px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #bbb;
+    text-transform: uppercase;
+  }
+
+  @media print {
+    body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 20px 16px; }
+    .step:hover, .modulo:hover { background: inherit; }
+
+    /* Nunca cortar dentro de um step ou módulo */
+    .step { break-inside: avoid; page-break-inside: avoid; }
+    .modulo { break-inside: avoid; page-break-inside: avoid; }
+    .fase-header { break-inside: avoid; page-break-inside: avoid; }
+    .alerta { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Manter cada fase inteira quando possível */
+    .fase { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Nunca quebrar o grid de fases no meio */
+    .fases { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Manter cabeçalho de bloco junto ao conteúdo */
+    .bloco-header { break-after: avoid; page-break-after: avoid; }
+
+    /* Forçar quebra antes do bloco 2 */
+    .divisor { break-before: page; page-break-before: always; margin-top: 0; padding-top: 20px; }
+
+    /* Grid de módulos: 1 coluna no print para caber melhor */
+    .modulos { grid-template-columns: 1fr; }
+    .fases { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Magos Gestão Estratégica iFood</div>
+  <h1>MAGOS <span>GESTÃO</span><br>ESTRATÉGICA IFOOD</h1>
+  <div class="sub">Mapa completo — Entrada do Cliente + Gestão Contínua</div>
+</div>
+
+<div class="wrapper">
+
+  <!-- ══════════════════════════════════
+       BLOCO 1 — ENTRADA DO CLIENTE
+  ══════════════════════════════════ -->
+  <div class="bloco">
+    <div class="bloco-header entrada">
+      <div class="num">01</div>
+      <div>
+        <div class="title">Entrada do Cliente</div>
+        <div class="subtitle">Processo de onboarding · Primeiros 15 dias</div>
+      </div>
+    </div>
+
+    <div class="fases">
+
+      <!-- FASE 1 -->
+      <div class="fase">
+        <div class="fase-header">
+          <div class="fase-num">FASE 01</div>
+          <div class="fase-title">Diagnóstico e<br>preparação</div>
+          <div class="fase-periodo">Dias 1–3 · Briefing, grupo, logo, acessos e prints</div>
+        </div>
+        <div class="fase-steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <div class="step-title">Formulário de entrada do cliente</div>
+              <div class="step-desc">Ler todas as informações antes de qualquer ação. Ponto de partida obrigatório.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <div class="step-title">Criar grupo WhatsApp</div>
+              <div class="step-desc">Nome: [emoji] [Cliente] | [Empresa]. Apresentar equipe. Enviar mensagem de boas-vindas.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <div class="step-title">Coletar acessos iFood</div>
+              <div class="step-desc">Solicitar no grupo — nunca avulso. Confirmar acessos existentes com o cliente.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <div class="step-title">Prints do portal (checklist)</div>
+              <div class="step-desc">Documentar estado inicial completo: desempenho, financeiro, avaliações, cardápio, promoções, área de entrega, horários, formas de pagamento, serviços.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-content">
+              <div class="step-title">Adicionar tags estratégicas</div>
+              <div class="step-desc">Palavras-chave do nicho na descrição do perfil. Impacto imediato em visitas.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="fase">
+        <div class="fase-header">
+          <div class="fase-num">FASE 02</div>
+          <div class="fase-title">Planejamento<br>estratégico</div>
+          <div class="fase-periodo">Dias 3–7 · Do onboarding ao plano de ação</div>
+        </div>
+        <div class="fase-steps">
+          <div class="step">
+            <div class="step-num">07</div>
+            <div class="step-content">
+              <div class="step-title">Reunião de onboarding</div>
+              <div class="step-desc">Apresentação de boas-vindas. Questionário de 19 perguntas. Anotar dores, concorrentes e expectativas.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">08</div>
+            <div class="step-content">
+              <div class="step-title">Benchmarking</div>
+              <div class="step-desc">Analisar concorrentes citados. Usar documento base para agilidade. Subir no sistema do cliente.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">09</div>
+            <div class="step-content">
+              <div class="step-title">Esboço do cardápio inicial</div>
+              <div class="step-desc">Estrutura + ofertas por nicho. Não é necessário criar todos os complementos — apenas o esqueleto.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <div class="step-title">Plano de ação + Plano estratégico interno</div>
+              <div class="step-desc">Plano de ação → cliente. Plano estratégico interno → equipe. Cobrir no mínimo 3 meses de direcionamento.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <div class="step-title">Atualizar taxa iFood</div>
+              <div class="step-desc">Fórmula: preço físico ÷ 0,82. Arredondar final para R$X,90. Aplicar em todos os itens.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="fase">
+        <div class="fase-header">
+          <div class="fase-num">FASE 03</div>
+          <div class="fase-title">Apresentação<br>e transição</div>
+          <div class="fase-periodo">Dias 7–15 · Da reunião à entrega do cardápio final</div>
+        </div>
+        <div class="fase-steps">
+          <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+              <div class="step-title">Reunião de apresentação das estratégias</div>
+              <div class="step-desc">Demonstrar autoridade com base nos dados levantados. Apresentar cardápio esboçado e próximos passos. Introduzir gestor responsável.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">13</div>
+            <div class="step-content">
+              <div class="step-title">Finalizar cardápio completo</div>
+              <div class="step-desc">Prazo: 2 dias após a reunião. Incluir Favorite a Loja (R$1,00), Mais Vendidos, complementos ajustados, bebidas industrializadas.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">14</div>
+            <div class="step-content">
+              <div class="step-title">Acompanhamento 7 dias</div>
+              <div class="step-desc">Gestor de entrada + gestor responsável juntos. Garantir que não há erros e o direcionamento está claro.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">15</div>
+            <div class="step-content">
+              <div class="step-title">Transição oficial</div>
+              <div class="step-desc">Entrada encerrada. Gestor responsável assume a gestão contínua seguindo o plano estratégico interno.</div>
+            </div>
+          </div>
+          <div class="alerta">
+            <strong>Regra:</strong> o cardápio de entrada deve ser impecável. É ele que coloca a operação sob controle e facilita toda a gestão contínua posterior.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- divisor -->
+  <div class="divisor">
+    <div class="divisor-line"></div>
+    <div class="divisor-label">Transição para gestão contínua</div>
+    <div class="divisor-line"></div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       BLOCO 2 — GESTÃO CONTÍNUA
+  ══════════════════════════════════ -->
+  <div class="bloco">
+    <div class="bloco-header gestao">
+      <div class="num">02</div>
+      <div>
+        <div class="title">Gestão Contínua iFood</div>
+        <div class="subtitle">Rotina operacional · Semanal + Mensal + Cardápio</div>
+      </div>
+    </div>
+
+    <div class="modulos">
+
+      <!-- Comunicação diária -->
+      <div class="modulo">
+        <div class="freq-badge freq-diario">Diário</div>
+        <div class="modulo-title">Comunicação ativa</div>
+        <ul class="modulo-items">
+          <li>Nenhum cliente pode ficar +3 dias sem comunicação ativa no grupo</li>
+          <li>Tempo de resposta padrão: 48h</li>
+          <li>Fins de semana: suporte com prazo diferenciado</li>
+          <li>Comunicação início de semana: como foi o final de semana + pendências</li>
+          <li>Comunicação final de semana: demandas para sexta-feira</li>
+        </ul>
+      </div>
+
+      <!-- Funil semanal -->
+      <div class="modulo">
+        <div class="freq-badge freq-semanal">Semanal</div>
+        <div class="modulo-title">Análise de funil</div>
+        <ul class="modulo-items">
+          <li><strong style="color:#CC0000">Visitas</strong> — mín. 3.000/mês · nome, entrega grátis, cupons, tags</li>
+          <li><strong style="color:#CC0000">Visualizações</strong> — mín. 50% das visitas · fotos, estrutura, preços</li>
+          <li><strong style="color:#CC0000">Sacola</strong> — mín. 50% das visualizações · descrições, complementos</li>
+          <li><strong style="color:#CC0000">Concluídos</strong> — 50–60% da sacola · tempo, mínimo, pagamento</li>
+          <li>Separar clientes em redução (7d, 15d, 21d) — acionar gestor</li>
+          <li>Verificar se há ações de gestão criadas no período</li>
+        </ul>
+      </div>
+
+      <!-- Avaliações e contestações -->
+      <div class="modulo">
+        <div class="freq-badge freq-cal">Calendário fixo</div>
+        <div class="modulo-title">Avaliações e contestações</div>
+        <ul class="modulo-items">
+          <li>Moderação de avaliações negativas (1, 2 e 3 estrelas) — prazo: 7 dias corridos</li>
+          <li>A avaliação não pode ter sido respondida para moderação ser aceita</li>
+          <li>Contestação de cancelamentos indevidos — prazo: 7 dias do pedido</li>
+          <li>O cliente não pode ter aceitado o cancelamento antes da contestação</li>
+          <li>Usar textos apelativos padrão da equipe em ambos os casos</li>
+          <li>Meta Super: nota >4,7 · cancelamentos <0,90% · erros <0,30%</li>
+        </ul>
+      </div>
+
+      <!-- Cardápio contínuo -->
+      <div class="modulo">
+        <div class="freq-badge freq-semanal">Contínuo</div>
+        <div class="modulo-title">Gestão de cardápio</div>
+        <ul class="modulo-items">
+          <li>Criar ofertas sazonais — feriados, datas comemorativas, calendário iFood</li>
+          <li>Manter item Favorite a Loja ativo e com cupons configurados</li>
+          <li>Monitorar produtos parados — o que não vende, não vende</li>
+          <li>Postar no feed iFood a cada 2 dias</li>
+          <li>Campanhas: Inteligente, Entrega Grátis e cupons personalizados</li>
+          <li>CI válida quando: novos + inativos 30d > 50% do total</li>
+        </ul>
+      </div>
+
+      <!-- Relatório mensal -->
+      <div class="modulo">
+        <div class="freq-badge freq-mensal">Mensal</div>
+        <div class="modulo-title">Relatório e controle</div>
+        <ul class="modulo-items">
+          <li>Alimentar planilha de faturamento mensal (por empresa)</li>
+          <li>Verificar envio dos relatórios mensais nos grupos de todos os clientes</li>
+          <li>Separar clientes em redução há mais de 1 mês — análise aprofundada</li>
+          <li>Verificar clientes sem ações de gestão no mês — acionar responsável</li>
+          <li>Pesquisar datas comemorativas do próximo mês (nicho alimentício)</li>
+        </ul>
+      </div>
+
+      <!-- Processo de saída -->
+      <div class="modulo">
+        <div class="freq-badge freq-cal">Quando necessário</div>
+        <div class="modulo-title">Pausa · Churn · Saída</div>
+        <ul class="modulo-items">
+          <li>Verificar clientes pausados — gestor está executando o cardápio?</li>
+          <li>Churn: remover acesso base → acesso churn → remoção dos nossos acessos</li>
+          <li>Remover da planilha oficial e de faturamento — mover para churn</li>
+          <li>Remover categoria "AJUSTES MANTER PAUSADO" do cardápio</li>
+          <li>Enviar comunicação final agradecendo pela parceria</li>
+          <li>Remover acesso de entrada após 1 mês (confirmar acesso base antes)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ESTRUTURA DE CARGOS -->
+<div style="max-width:1100px;margin:56px auto 0;">
+
+  <div style="text-align:center;margin-bottom:32px;">
+    <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#CC0000;margin-bottom:8px;">Modelo de Operação</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:#111;">ESTRUTURA DE CARGOS POR FASE</div>
+    <div style="font-size:13px;color:#999;margin-top:6px;">Como a equipe cresce conforme a carteira de clientes aumenta</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+    <!-- Fase 1 -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;">
+      <div style="background:#CC0000;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.6);margin-bottom:4px;">FASE 1 · MVP</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Operação Solo</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Do primeiro cliente ao crescimento</div>
+      </div>
+      <div style="background:#fff;padding:20px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:4px;">GESTOR</div>
+            
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Executa as 12 etapas do processo</li>
+              <li style="font-size:11px;color:#888;">· Cuida dos grupos e atendimento</li>
+              <li style="font-size:11px;color:#888;">· Analisa funil e cria ofertas</li>
+              <li style="font-size:11px;color:#888;">· Faz relatórios e controle</li>
+              <li style="font-size:11px;color:#888;">· Define estratégia</li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Fase 2 -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;">
+      <div style="background:#111;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.5);margin-bottom:4px;">FASE 2 · CRESCIMENTO</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Dupla Operacional</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">Gestor foca em resultado, atendimento cuida do cliente</div>
+      </div>
+      <div style="background:#fff;padding:20px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:4px;">GESTOR</div>
+            <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:6px;">Estratégia + Operação iFood</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Executa gestão iFood dos clientes</li>
+              <li style="font-size:11px;color:#888;">· Analisa funil e define campanhas</li>
+              <li style="font-size:11px;color:#888;">· Controla qualidade das entregas</li>
+            </ul>
+          </div>
+          <div style="background:#f0f7ff;border:1px solid #bdd9f5;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a6fbf;margin-bottom:4px;">ATENDIMENTO</div>
+            <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:6px;">Comunicação + Suporte</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Cuida dos grupos de clientes</li>
+              <li style="font-size:11px;color:#888;">· Responde demandas e dúvidas</li>
+              <li style="font-size:11px;color:#888;">· Controle de comunicação ativa</li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Fase 3 -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;">
+      <div style="background:#004d30;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.5);margin-bottom:4px;">FASE 3 · ESCALA</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Time Completo</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">Gestor no estratégico, operação delegada</div>
+      </div>
+      <div style="background:#fff;padding:20px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:4px;">GESTOR ESTRATÉGICO</div>
+            <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:6px;">Visão + Controle</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Define estratégia da operação</li>
+              <li style="font-size:11px;color:#888;">· Supervisiona qualidade e resultados</li>
+              <li style="font-size:11px;color:#888;">· Cuida do crescimento da carteira</li>
+            </ul>
+          </div>
+          <div style="background:#f0f7ff;border:1px solid #bdd9f5;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a6fbf;margin-bottom:4px;">ATENDIMENTO</div>
+            <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:6px;">Comunicação + Suporte</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Cuida dos grupos de clientes</li>
+              <li style="font-size:11px;color:#888;">· Controle de comunicação ativa</li>
+            </ul>
+          </div>
+          <div style="background:#f5fff5;border:1px solid #b5e5b5;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a7a1a;margin-bottom:4px;">GESTOR OPERACIONAL</div>
+            <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:6px;">Execução iFood</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+              <li style="font-size:11px;color:#888;">· Executa gestão iFood dos clientes</li>
+              <li style="font-size:11px;color:#888;">· Cria ofertas e campanhas</li>
+              <li style="font-size:11px;color:#888;">· Relatórios e análise de funil</li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+  <!-- seta de progressão -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px;">
+    <div style="font-size:11px;color:#CC0000;font-weight:600;letter-spacing:1px;">FASE 1</div>
+    <div style="flex:1;height:1px;background:linear-gradient(to right,#CC0000,#004d30);max-width:300px;"></div>
+    <div style="font-size:11px;color:#555;font-weight:600;letter-spacing:1px;">FASE 2</div>
+    <div style="flex:1;height:1px;background:linear-gradient(to right,#555,#004d30);max-width:300px;"></div>
+    <div style="font-size:11px;color:#004d30;font-weight:600;letter-spacing:1px;">FASE 3</div>
+  </div>
+  <div style="text-align:center;margin-top:8px;font-size:11px;color:#bbb;">Crescimento natural conforme carteira de clientes expande</div>
+
+</div>
+
+<div class="footer" style="margin-top:48px;">Magos Gestão Estratégica iFood · Uso interno</div>
+
+</body>
+</html>
