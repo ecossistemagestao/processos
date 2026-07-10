@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jornada Completa — Magos Gestão Estratégica iFood</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+  padding: 48px 32px 80px;
+}
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.header .tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #CC0000;
+  border: 1px solid #CC0000;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 7vw, 80px);
+  letter-spacing: 3px;
+  line-height: 1;
+  color: #111;
+}
+.header h1 span { color: #CC0000; }
+.header .sub {
+  font-size: 14px;
+  color: #999;
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+/* ── LEGENDA ── */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-gestor { background: #CC0000; }
+.dot-cliente { background: #1a6fbf; }
+.dot-marco { background: #111; }
+
+/* ── LINHA DO TEMPO ── */
+.timeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* linha central vertical */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #CC0000, #e0e0e0 80%, transparent);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* ── MARCO (título de fase) ── */
+.marco {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin: 48px 0 32px;
+}
+.marco-inner {
+  background: #111;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  padding: 8px 28px;
+  border-radius: 30px;
+  position: relative;
+}
+.marco-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  width: 52px;
+  height: 2px;
+  background: #111;
+  transform: translateY(-50%);
+}
+.marco-inner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -60px;
+  width: 52px;
+  height: 2px;
+  background: #111;
+  transform: translateY(-50%);
+}
+
+/* ── LINHA DO EVENTO ── */
+.event-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 24px;
+  align-items: start;
+  z-index: 1;
+}
+
+/* nó central */
+.node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 2;
+  position: relative;
+}
+.node-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  color: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px #fff;
+}
+.node-circle.red { background: #CC0000; }
+.node-circle.blue { background: #1a6fbf; }
+.node-line {
+  width: 2px;
+  flex: 1;
+  min-height: 20px;
+  background: #e8e8e8;
+}
+
+/* cards */
+.card-gestor, .card-cliente {
+  border-radius: 12px;
+  padding: 16px 20px;
+  position: relative;
+}
+.card-gestor {
+  background: #fff5f5;
+  border: 1px solid #f5c6c6;
+  margin-right: 20px;
+  text-align: right;
+}
+.card-cliente {
+  background: #f0f7ff;
+  border: 1px solid #bdd9f5;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.card-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.card-gestor .card-tag { color: #CC0000; }
+.card-cliente .card-tag { color: #1a6fbf; }
+
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.card-desc {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.card-items {
+  list-style: none;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.card-gestor .card-items li {
+  font-size: 11px;
+  color: #888;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  justify-content: flex-end;
+  text-align: right;
+}
+.card-gestor .card-items li::after {
+  content: '·';
+  color: #CC0000;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.card-cliente .card-items li {
+  font-size: 11px;
+  color: #888;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.card-cliente .card-items li::before {
+  content: '·';
+  color: #1a6fbf;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* sentimento do cliente */
+.feeling {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #e8f3ff;
+  color: #1a6fbf;
+}
+
+/* ── COLUNA HEADERS ── */
+.col-headers {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  max-width: 1100px;
+  margin: 0 auto 8px;
+  gap: 0;
+}
+.col-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+.col-header.gestor {
+  background: #fff0f0;
+  color: #CC0000;
+  text-align: right;
+  margin-right: 20px;
+  border: 1px solid #f5c6c6;
+}
+.col-header.cliente {
+  background: #f0f7ff;
+  color: #1a6fbf;
+  text-align: left;
+  margin-left: 20px;
+  border: 1px solid #bdd9f5;
+}
+
+/* ── RESULTADO FINAL ── */
+.resultado {
+  max-width: 1100px;
+  margin: 56px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.resultado-card {
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.resultado-card.red { background: #fff0f0; border: 1px solid #f5c6c6; }
+.resultado-card.gray { background: #f5f5f5; border: 1px solid #e0e0e0; }
+.resultado-card.blue { background: #f0f7ff; border: 1px solid #bdd9f5; }
+
+.resultado-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.resultado-card.red .resultado-num { color: #CC0000; }
+.resultado-card.gray .resultado-num { color: #111; }
+.resultado-card.blue .resultado-num { color: #1a6fbf; }
+
+.resultado-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 8px;
+}
+.resultado-desc {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  margin-top: 64px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+@media print {
+  body { padding: 24px 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .event-row { break-inside: avoid; page-break-inside: avoid; }
+  .marco { break-inside: avoid; page-break-inside: avoid; }
+  .resultado { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="tag">Magos Gestão Estratégica iFood</div>
+  <h1>JORNADA <span>COMPLETA</span></h1>
+  <div class="sub">Do primeiro contato à gestão recorrente — visão do Gestor e do Cliente</div>
+</div>
+
+<!-- LEGENDA -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-gestor"></div> O que o Gestor faz</div>
+  <div class="legend-item"><div class="legend-dot dot-cliente"></div> O que o Cliente vive</div>
+  <div class="legend-item"><div class="legend-dot dot-marco"></div> Marco da jornada</div>
+</div>
+
+<!-- COLUNAS -->
+<div class="col-headers">
+  <div class="col-header gestor">👤 Gestor</div>
+  <div></div>
+  <div class="col-header cliente">🏪 Cliente</div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline">
+
+  <!-- ══ FASE 1 — ENTRADA ══ -->
+  <div class="marco">
+    <div class="marco-inner">FASE 1 · ENTRADA E CONFIGURAÇÃO · DIAS 1–3</div>
+  </div>
+
+  <!-- Evento 1 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Aplica o formulário de entrada</div>
+      <ul class="card-items">
+        <li>Informações iniciais do cliente</li>
+        <li>Segmento e dados da operação</li>
+        <li>Base para o contrato</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">01</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Acabou de fechar o contrato</div>
+      <div class="card-desc">Animado, mas ansioso. Quer saber o que acontece agora e quando começa a ver resultado.</div>
+      <div class="feeling">😬 Ansioso e esperançoso</div>
+    </div>
+  </div>
+
+  <!-- Evento 2 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Cria o grupo de WhatsApp</div>
+      <ul class="card-items">
+        <li>Nome padrão: [emoji] [Cliente] | [Empresa]</li>
+        <li>Envia mensagem de apresentação da equipe</li>
+        <li>Solicita acessos iFood no grupo</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">02</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Primeiro contato oficial</div>
+      <div class="card-desc">Recebe a mensagem de boas-vindas. Conhece quem vai cuidar do seu negócio. Sente que a empresa é organizada.</div>
+      <div class="feeling">😊 Bem recebido</div>
+    </div>
+  </div>
+
+  <!-- Evento 3 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Coleta logo e acessos iFood</div>
+      <ul class="card-items">
+        <li>Solicita logo em alta resolução (PNG/AI)</li>
+        <li>Recebe credenciais com segurança via grupo</li>
+        <li>Testa o acesso antes de avançar</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">03/04</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Sente o processo começando</div>
+      <div class="card-desc">Percebe que a equipe é ágil e sabe o que está fazendo. A coleta de materiais passa sensação de profissionalismo.</div>
+      <div class="feeling">👍 Confiante</div>
+    </div>
+  </div>
+
+  <!-- Evento 4 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Realiza checklist completo do portal</div>
+      <ul class="card-items">
+        <li>Prints de todas as abas (13 itens)</li>
+        <li>Funil, financeiro, avaliações, super, promoções</li>
+        <li>Cardápio, entrega, horários, pagamentos, serviços</li>
+        <li>Pasta organizada: [Cliente] - [ID] - [Data]</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">05</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Ainda não sabe o que está acontecendo</div>
+      <div class="card-desc">Enquanto aguarda, a equipe já está mergulhando nos dados dele. Essa etapa é invisível para o cliente — mas é onde tudo começa.</div>
+      <div class="feeling">⏳ Aguardando retorno</div>
+    </div>
+  </div>
+
+  <!-- ══ FASE 2 — PLANEJAMENTO ══ -->
+  <div class="marco">
+    <div class="marco-inner">FASE 2 · PLANEJAMENTO E ATIVAÇÃO · DIAS 3–7</div>
+  </div>
+
+  <!-- Evento 5 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Conduz a 1ª Reunião de Alinhamento</div>
+      <ul class="card-items">
+        <li>Apresenta análise inicial do iFood</li>
+        <li>Aplica questionário de 19 perguntas</li>
+        <li>Identifica dores, concorrentes e oportunidades</li>
+        <li>Alinha expectativas para o mês 1</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">06</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Primeira reunião — tem voz</div>
+      <div class="card-desc">Pela primeira vez fala sobre seu negócio com quem vai cuidar dele. Sente que está sendo ouvido de verdade. Começa a entender o que será feito.</div>
+      <div class="feeling">🗣 Ouvido e valorizado</div>
+    </div>
+  </div>
+
+  <!-- Evento 6 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Elabora e entrega o Plano de Ação</div>
+      <ul class="card-items">
+        <li>O que será feito, em que ordem, com qual objetivo</li>
+        <li>Ajustes de cardápio definidos e listados</li>
+        <li>Campanhas a ativar com datas previstas</li>
+        <li>Envia no grupo e aguarda aprovação</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">07</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Recebe o Plano de Ação</div>
+      <div class="card-desc">Vê pela primeira vez tudo que será feito no seu negócio. Sente que contratou algo sério. A aprovação gera comprometimento dos dois lados.</div>
+      <div class="feeling">📋 Comprometido com o plano</div>
+    </div>
+  </div>
+
+  <!-- Evento 7 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Realiza Auditoria iFood (D3)</div>
+      <ul class="card-items">
+        <li>Lista de correções por prioridade: Alta / Média / Baixa</li>
+        <li>Fotos, descrições, preços, pedido mínimo</li>
+        <li>Horários, área de entrega, endereço</li>
+        <li>Envia lista ao cliente no grupo</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">08</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Recebe o diagnóstico da loja</div>
+      <div class="card-desc">Vê os problemas da sua operação com clareza pela primeira vez. Pode ser impactante — mas cria consciência do valor do serviço contratado.</div>
+      <div class="feeling">😯 Surpreso com o diagnóstico</div>
+    </div>
+  </div>
+
+  <!-- Evento 8 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Executa primeiros ajustes no cardápio</div>
+      <ul class="card-items">
+        <li>Fotos, descrições, preços e combos</li>
+        <li>Categorias organizadas e nomeadas</li>
+        <li>Item "Favorite a Loja" criado (R$1,00)</li>
+        <li>Print antes e depois salvo como prova</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">09</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Vê a loja mudando na plataforma</div>
+      <div class="card-desc">Percebe visualmente o trabalho acontecendo. O cardápio mais bonito e organizado gera orgulho e reforça a decisão de contratar.</div>
+      <div class="feeling">😍 Orgulhoso da loja</div>
+    </div>
+  </div>
+
+  <!-- Evento 9 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Ativa as primeiras campanhas</div>
+      <ul class="card-items">
+        <li>Promoção ou campanha inicial no iFood</li>
+        <li>Campanha inteligente verificada ou ativada</li>
+        <li>Cupom de boas-vindas configurado</li>
+        <li>Ticket alimentação ativado se aplicável</li>
+        <li>Campanhas comunicadas ao cliente no grupo</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">10</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Primeiros resultados aparecem</div>
+      <div class="card-desc">Começa a ver movimento na plataforma. Pedidos chegando com novas campanhas ativas. Momento de maior entusiasmo com o serviço.</div>
+      <div class="feeling">🚀 Empolgado com os resultados</div>
+    </div>
+  </div>
+
+  <!-- ══ FASE 3 — ACOMPANHAMENTO ══ -->
+  <div class="marco">
+    <div class="marco-inner">FASE 3 · ACOMPANHAMENTO · D14 E D30</div>
+  </div>
+
+  <!-- Evento 10 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Check-in de 2 semanas (D14)</div>
+      <ul class="card-items">
+        <li>Ouvir — não vender</li>
+        <li>Perguntar como está sendo a experiência</li>
+        <li>Registrar feedback e encaminhar ajustes</li>
+        <li>Demonstrar cuidado e antecipação</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">11</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Sente que não foi esquecido</div>
+      <div class="card-desc">A maioria das empresas some após a venda. O check-in ativo no D14 diferencia a Magos e antecipa insatisfações antes que virem cancelamento.</div>
+      <div class="feeling">💙 Cuidado e valorizado</div>
+    </div>
+  </div>
+
+  <!-- Evento 11 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor</div>
+      <div class="card-title">Reunião de Resultado do Mês 1 (D30)</div>
+      <ul class="card-items">
+        <li>Relatório: pedidos, ticket médio, avaliações, crescimento</li>
+        <li>Comparativo vs período anterior à gestão</li>
+        <li>Plano para o mês 2 apresentado</li>
+        <li>Cliente migrado para gestão recorrente</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">12</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Vê o resultado do primeiro mês</div>
+      <div class="card-desc">Números na tela. Comparativo claro antes e depois. Esse momento é decisivo para a renovação — o cliente que vê resultado não cancela.</div>
+      <div class="feeling">📈 Confiante na renovação</div>
+    </div>
+  </div>
+
+  <!-- ══ GESTÃO RECORRENTE ══ -->
+  <div class="marco">
+    <div class="marco-inner">GESTÃO RECORRENTE · MESES 2 EM DIANTE</div>
+  </div>
+
+  <!-- Evento 12 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor — Rotina Semanal</div>
+      <div class="card-title">Análise de funil e ações semanais</div>
+      <ul class="card-items">
+        <li>Funil: visitas → visualizações → sacola → conversão</li>
+        <li>Criar ofertas sazonais e campanhas</li>
+        <li>Postar no feed iFood a cada 2 dias</li>
+        <li>Comunicação ativa no grupo (máx. 3 dias sem contato)</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle blue">S</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Operação rodando no piloto automático</div>
+      <div class="card-desc">O cliente não precisa se preocupar com o iFood. Sabe que tem uma equipe olhando para o negócio dele toda semana — isso é o produto que ele comprou.</div>
+      <div class="feeling">😌 Tranquilo e focado na cozinha</div>
+    </div>
+  </div>
+
+  <!-- Evento 13 -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor — Rotina Mensal</div>
+      <div class="card-title">Relatório mensal e planejamento</div>
+      <ul class="card-items">
+        <li>Relatório de faturamento enviado no grupo</li>
+        <li>Análise de clientes em redução</li>
+        <li>Contestação de cancelamentos e moderação de avaliações</li>
+        <li>Calendário de datas comemorativas do próximo mês</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle blue">M</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Acompanha o crescimento com dados</div>
+      <div class="card-desc">Recebe relatório todo mês com os números do negócio. Vê a evolução ao longo do tempo. Compara com antes da gestão e reforça o valor do serviço.</div>
+      <div class="feeling">📊 Informado e seguro</div>
+    </div>
+  </div>
+
+  <!-- ══ SITUAÇÕES ESPECIAIS ══ -->
+  <div class="marco">
+    <div class="marco-inner">SITUAÇÕES ESPECIAIS · QUANDO NECESSÁRIO</div>
+  </div>
+
+  <!-- Evento 14 — Redução -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor — Cliente em Redução</div>
+      <div class="card-title">Análise aprofundada do funil</div>
+      <ul class="card-items">
+        <li>Identificar em qual etapa a queda acontece</li>
+        <li>Agir diretamente no gargalo (visitas, visualização, sacola)</li>
+        <li>Reativar campanhas ou ajustar cardápio</li>
+        <li>Comunicar o cliente com transparência</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">⚠</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Percebe queda no movimento</div>
+      <div class="card-desc">Momento crítico — se não houver ação rápida e comunicação clara, o cliente cancela. A transparência do gestor é o que segura a conta.</div>
+      <div class="feeling">😰 Preocupado — precisa de resposta</div>
+    </div>
+  </div>
+
+  <!-- Evento 15 — Pausa -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor — Cliente Pausado</div>
+      <div class="card-title">Manter relacionamento ativo</div>
+      <ul class="card-items">
+        <li>Verificar se gestor está executando o cardápio</li>
+        <li>Comunicação ativa mesmo com loja pausada</li>
+        <li>Ajustar categoria "AJUSTES MANTER PAUSADO"</li>
+        <li>Monitorar prazo de reativação</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">⏸</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Loja temporariamente parada</div>
+      <div class="card-desc">Mesmo pausado, o cliente deve sentir que a equipe está de olho. O abandono nesse momento é o principal motivo de churn.</div>
+      <div class="feeling">😶 Vulnerável — não pode se sentir esquecido</div>
+    </div>
+  </div>
+
+  <!-- ══ SAÍDA ══ -->
+  <div class="marco">
+    <div class="marco-inner">SAÍDA DO CLIENTE · QUANDO OCORRE</div>
+  </div>
+
+  <!-- Evento 16 — Churn -->
+  <div class="event-row">
+    <div class="card-gestor">
+      <div class="card-tag">Gestor — Processo de Churn</div>
+      <div class="card-title">Encerramento organizado</div>
+      <ul class="card-items">
+        <li>Remover acesso base → acesso churn</li>
+        <li>Remover da planilha oficial → mover para churn</li>
+        <li>Remover categoria "AJUSTES MANTER PAUSADO"</li>
+        <li>Enviar comunicação final agradecendo pela parceria</li>
+      </ul>
+    </div>
+    <div class="node">
+      <div class="node-circle red">✕</div>
+    </div>
+    <div class="card-cliente">
+      <div class="card-tag">Cliente</div>
+      <div class="card-title">Saída com porta aberta</div>
+      <div class="card-desc">A forma como o cliente sai define se ele volta ou indica. Um encerramento respeitoso e organizado é o último ponto de contato — e pode ser o mais memorável.</div>
+      <div class="feeling">🤝 Respeitado mesmo na saída</div>
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<!-- RESULTADO FINAL -->
+<div class="resultado">
+  <div class="resultado-card red">
+    <div class="resultado-num">12</div>
+    <div class="resultado-label">Etapas do onboarding</div>
+    <div class="resultado-desc">Do briefing à gestão recorrente em 30 dias com processo estruturado e rastreável</div>
+  </div>
+  <div class="resultado-card gray">
+    <div class="resultado-num">30</div>
+    <div class="resultado-label">Dias para resultado visível</div>
+    <div class="resultado-desc">Cliente com cardápio, campanhas e relatório do mês 1 em mãos ao final do onboarding</div>
+  </div>
+  <div class="resultado-card blue">
+    <div class="resultado-num">∞</div>
+    <div class="resultado-label">Gestão recorrente</div>
+    <div class="resultado-desc">Rotina semanal e mensal que garante crescimento contínuo e reduz cancelamentos</div>
+  </div>
+</div>
+
+<!-- ESTRUTURA DE CARGOS -->
+<div style="max-width:1100px;margin:56px auto 0;">
+
+  <div style="text-align:center;margin-bottom:32px;">
+    <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#CC0000;margin-bottom:8px;">Modelo de Franquia</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:#111;">QUEM EXECUTA ESSA JORNADA?</div>
+    <div style="font-size:13px;color:#999;margin-top:6px;">A estrutura de equipe evolui conforme a carteira de clientes cresce</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+    <!-- Fase 1 -->
+    <div style="border-radius:12px;overflow:hidden;border:2px solid #CC0000;">
+      <div style="background:#CC0000;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.6);margin-bottom:4px;">FASE 1 · MVP</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Operação Solo</div>
+      </div>
+      <div style="background:#fff;padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:6px;">1 GESTOR</div>
+          
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;">
+            <li style="font-size:11px;color:#888;">· Executa as 12 etapas do processo</li>
+            <li style="font-size:11px;color:#888;">· Cuida dos grupos e atendimento</li>
+            <li style="font-size:11px;color:#888;">· Analisa funil e cria ofertas</li>
+            <li style="font-size:11px;color:#888;">· Faz relatórios e controle</li>
+            <li style="font-size:11px;color:#888;">· Define estratégia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fase 2 -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;">
+      <div style="background:#111;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-bottom:4px;">FASE 2 · CRESCIMENTO</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Dupla Operacional</div>
+      </div>
+      <div style="background:#fff;padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:4px;">GESTOR</div>
+          <div style="font-size:11px;color:#666;">Gestão iFood, estratégia e controle de qualidade</div>
+        </div>
+        <div style="background:#f0f7ff;border:1px solid #bdd9f5;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a6fbf;margin-bottom:4px;">ATENDIMENTO</div>
+          <div style="font-size:11px;color:#666;">Grupos, suporte e comunicação ativa com clientes</div>
+        </div>
+        <div style="background:#fffbf0;border:1px dashed #e0c060;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#886600;margin-bottom:4px;">FINANCEIRO / CONTRATOS</div>
+          <div style="font-size:11px;color:#666;font-weight:600;">Pode ser terceirizado</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fase 3 -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;">
+      <div style="background:#004d30;padding:16px 20px;">
+        <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-bottom:4px;">FASE 3 · ESCALA</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">Time Completo</div>
+      </div>
+      <div style="background:#fff;padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#CC0000;margin-bottom:4px;">GESTOR ESTRATÉGICO</div>
+          <div style="font-size:11px;color:#666;">Visão, controle e crescimento da carteira</div>
+        </div>
+        <div style="background:#f0f7ff;border:1px solid #bdd9f5;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a6fbf;margin-bottom:4px;">ATENDIMENTO</div>
+          <div style="font-size:11px;color:#666;">Comunicação e suporte contínuo</div>
+        </div>
+        <div style="background:#f5fff5;border:1px solid #b5e5b5;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#1a7a1a;margin-bottom:4px;">GESTOR OPERACIONAL</div>
+          <div style="font-size:11px;color:#666;">Execução iFood, ofertas e análise de funil</div>
+        </div>
+        <div style="background:#fffbf0;border:1px dashed #e0c060;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#886600;margin-bottom:4px;">FINANCEIRO / CONTRATOS</div>
+          <div style="font-size:11px;color:#666;font-weight:600;">Pode ser terceirizado</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px;">
+    <div style="font-size:11px;color:#CC0000;font-weight:600;letter-spacing:1px;">FASE 1</div>
+    <div style="flex:1;height:1px;background:linear-gradient(to right,#CC0000,#111);max-width:280px;"></div>
+    <div style="font-size:11px;color:#555;font-weight:600;letter-spacing:1px;">FASE 2</div>
+    <div style="flex:1;height:1px;background:linear-gradient(to right,#111,#004d30);max-width:280px;"></div>
+    <div style="font-size:11px;color:#004d30;font-weight:600;letter-spacing:1px;">FASE 3</div>
+  </div>
+  <div style="text-align:center;margin-top:8px;font-size:11px;color:#bbb;">O franqueado começa solo e escala naturalmente conforme a carteira cresce</div>
+
+</div>
+
+</div>
+
+<div class="footer" style="margin-top:48px;">Magos Gestão Estratégica iFood · Uso interno</div>
+
+</body>
+</html>
